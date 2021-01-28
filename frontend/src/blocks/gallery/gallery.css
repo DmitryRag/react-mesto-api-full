@@ -1,0 +1,34 @@
+@import url(./__card/gallery__card.css);
+@import url(./__photo/gallery__photo.css);
+@import url(./__info-container/gallery__info-container.css);
+@import url(./__photo-title/gallery__photo-title.css);
+@import url(./__like-button/gallery__like-button.css);
+@import url(./__trash-button/gallery__trash-button.css);
+@import url(./__like-container/gallery__like-container.css);
+@import url(./__like-number/gallery__like-number.css);
+
+.gallery {
+    max-width: 882px;
+    margin: 0 auto;
+    padding: 51px 0 66px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 18px 20px;
+    justify-content: center;
+}
+
+@media screen and (max-width: 1199px) {
+    .gallery {
+        grid-template-columns: repeat(2, minmax(min-content, max-content));
+    }
+}
+
+@media screen and (max-width: 960px) {
+    .gallery {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: calc(282/320*100%);
+        padding: 36px 0 48px;
+    }
+}

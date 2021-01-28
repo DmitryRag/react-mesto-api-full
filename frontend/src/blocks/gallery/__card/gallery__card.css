@@ -1,0 +1,22 @@
+.gallery__card {
+    list-style-type: none;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+}
+
+@media screen and (max-width: 960px) {
+    .gallery__card {
+        margin: 0 auto 20px;
+    }
+
+    .gallery__card:last-child {
+        margin: 0 auto;
+    }
+}
+
+@media screen and (max-width: 319px) {
+    .gallery__card {
+        width: 100%;
+    }
+}

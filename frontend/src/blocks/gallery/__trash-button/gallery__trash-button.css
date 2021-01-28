@@ -1,0 +1,19 @@
+.gallery__trash-button {
+    width: 18px;
+    height: 19.3px;
+    background: url(../../../images/trash__logo.svg) center no-repeat;
+    padding: 0;
+    border: none;
+    outline: none;
+    background-color: rgba(0, 0, 0, 0);
+    position: absolute;
+    top: 17px;
+    left: 249px;
+}
+
+@media screen and (max-width: 319px) {
+    .gallery__trash-button {
+        top: 17px;
+        left: 228px;
+    }
+}
