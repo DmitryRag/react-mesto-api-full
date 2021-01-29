@@ -84,8 +84,8 @@ function App() {
     }
 
     // функция отправки новой карточки на сервер
-    function handleAddPlace(newCard) {
-        api.postNewCard(newCard)
+    function handleAddPlace({ name, link }) {
+        api.postNewCard(name, link)
         .then(res => {
             setCards([res, ...cards])
             closeAllPopups()
@@ -98,31 +98,32 @@ function App() {
     // функция отрисовки лайка
     function handleCardLike(card) {
         // проверяем, есть ли уже лайк на этой карточке
-        const isLiked = card.likes.some(i => i._id === currentUser._id)
+        const isLiked = card.likes.some((like) => like === currentUser._id)
         // отправляем запрос на сервер и получаем обновлённые данные карточки
-        api.changeLikeCardStatus(card._id, !isLiked).then((newCard) => {
+        api.changeLikeCardStatus(card._id, !isLiked)
+        .then((newCard) => {
             // формируем новый массив на основе имеющегося, подставляя в него новую карточку
-            const newCards = cards.map((c) => c._id === card._id ? newCard : c)
+            const newCards = cards.map((c) => (c._id === card._id ? newCard : c))
             // обновляем стейт
             setCards(newCards)
+        })
+        .catch((err) => {
+            console.log(err)
         })
     }
 
     // функция удаления карточки
     function handleCardDelete(card) {
         // проверяем карточку, добавлена ли она текущем пользователем
-        const isDeletable = card.owner._id === currentUser._id
-
-        if (isDeletable) {
-            api.deleteCard(card._id)
-            .then((res) => {
-                const newCards = cards.filter((c) => c._id !== card._id)
-                setCards(newCards)
-            })
-            .catch((err) => {
-                console.log(err)
-            })
-        }
+        const isOwn = card.owner._id === currentUser._id
+        api.deleteCard(card._id, !isOwn)
+        .then(() => {
+            const newCards = cards.filter((c) => c._id !== card._id)
+            setCards(newCards)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
     }
     
     // функция открытия попапа профиля
@@ -222,7 +223,7 @@ function App() {
         <div className="page">
             <CurrentUserContext.Provider value={currentUser}>
                 <Header
-                    userData = {userData}
+                    currentUser = {currentUser}
                     handleLoggedOut = {handleLoggedOut}
                 />
                 <Switch>

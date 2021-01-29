@@ -48,11 +48,14 @@ class Api {
         .then((res) => this._getResponseData(res))
     }
     
-    postNewCard(item) {
+    postNewCard(cardName, cardLink) {
         return fetch(`${this.baseUrl}/cards`, {
             method: "POST",
             headers: this.headers,
-            body: JSON.stringify(item)
+            body: JSON.stringify({
+                name: cardName,
+                link: cardLink,
+              })
         })
         .then((res) => this._getResponseData(res))
     }

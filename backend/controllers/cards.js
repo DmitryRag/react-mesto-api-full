@@ -1,7 +1,6 @@
 /* eslint-disable no-shadow */
 const Card = require('../models/card');
 const User = require('../models/user');
-/* const User = require('../models/user'); */
 const ServerError = require('../errors/server-error');
 const BadReqError = require('../errors/bad-req-error');
 const NotFoundError = require('../errors/not-found-error');
