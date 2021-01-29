@@ -33,6 +33,9 @@ function App() {
 
     // запрашиваем данные пользователя с сервера
     React.useEffect(() => {
+        if(!loggedIn) {
+            return;
+        }
         api.getUserInfo()
         .then(res => {
             setCurrentUser(res)
@@ -40,10 +43,13 @@ function App() {
         .catch((err) => {
             console.log(err)
         })
-    }, [])
+    }, [loggedIn])
 
     // запрашиваем массив карточек с сервера
     React.useEffect(() => {
+        if(!loggedIn) {
+            return;
+        }
         api.getInitialCards()
         .then(initialCards => {
             setCards(initialCards)
@@ -51,7 +57,7 @@ function App() {
         .catch((err) => {
             console.log(err)
         })
-    }, [])
+    }, [loggedIn])
 
     // функция обновляет данные пользователя
     function handleUpdateUser(newUser) {
@@ -177,8 +183,8 @@ function App() {
     }
     
     // регистрация
-    function handleRegister(email, password) {
-        auth.register(email, password)
+    function handleRegister(email, password, name) {
+        auth.register(email, password, name)
         .then((res) => {
             if (res) {
                 history.push('/sign-in')
