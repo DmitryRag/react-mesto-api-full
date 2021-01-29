@@ -192,9 +192,9 @@ function App() {
     }
 
     function tokenCheck() {
-        if (localStorage.getItem('jwt')) {
-            const jwt = localStorage.getItem('jwt')  
-            auth.getContent(jwt)
+        if (localStorage.getItem('token')) {
+            const token = localStorage.getItem('token')  
+            auth.getContent(token)
             .then((res) => {
                 if (res) {
                     setUserData(res.data)
@@ -212,6 +212,7 @@ function App() {
     }, [])
 
     // возвращаем разметку страницы, которую добавляем в DOM
+    
     return (
         <div className="page">
             <CurrentUserContext.Provider value={currentUser}>

@@ -110,10 +110,11 @@ class Api {
 
 
 const api = new Api({
-    baseUrl: "https://mesto.nomoreparties.co/v1/cohort-16",
+    baseUrl: "https://api.dmitryrag.students.nomoredomains.icu",
     headers: {
-        authorization: '9a81d1c5-933e-4e22-94e1-436b8f8accda',
-        'Content-Type': 'application/json'
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem("token")}`
     }
 })
 

@@ -1,5 +1,4 @@
-export const BASE_URL = 'http://localhost:3000';
-/* 'https://auth.nomoreparties.co' */
+export const BASE_URL = 'https://api.dmitryrag.students.nomoredomains.icu';
 
 // отправка запроса на регистрацию пользователя
 export const register = (email, password) => {

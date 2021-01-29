@@ -8,16 +8,16 @@ const {
   getCurrentUser,
 } = require('../controllers/users');
 
-router.get('/', getUsers);
-router.get('/me', getCurrentUser);
+router.get('/users', getUsers);
+router.get('/users/me', getCurrentUser);
 
-router.get('/:id', celebrate({
+router.get('/users/:id', celebrate({
   params: Joi.object().keys({
     id: Joi.string().min(24).hex(),
   }),
 }), getProfile);
 
-router.post('/', celebrate({
+router.post('/users', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required().min(2).max(30),
