@@ -57,6 +57,7 @@ app.use('/cards', auth, cardsRouter); // запустили роутер кар�
 app.use('/users', auth, usersRouter); // запустили роутер пользователей
 
 app.use(errorLogger); // подключаем логгер ошибок
+
 app.use(errors()); // обработчик ошибок celebrate
 
 app.use((req, res) => {
