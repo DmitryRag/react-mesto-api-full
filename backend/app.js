@@ -53,8 +53,8 @@ app.post('/signin', celebrate({
   }),
 }), login);
 
-app.use('/', auth, cardsRouter); // запустили роутер карточек
-app.use('/', auth, usersRouter); // запустили роутер пользователей
+app.use('/cards', auth, cardsRouter); // запустили роутер карточек
+app.use('/users', auth, usersRouter); // запустили роутер пользователей
 
 app.use(errorLogger); // подключаем логгер ошибок
 app.use(errors()); // обработчик ошибок celebrate
