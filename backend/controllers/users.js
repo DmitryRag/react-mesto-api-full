@@ -56,6 +56,41 @@ const createUser = (req, res, next) => {
     .catch(next);
 };
 
+const updateAvatar = (req, res, next) => {
+  const id = req.user._id;
+  const newAvatar = req.body.avatar;
+  User.findOneAndUpdate(
+    { _id: id },
+    { avatar: newAvatar },
+    { runValidators: true, new: true },
+  )
+    .then((user) => res.status(200).send(user))
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        throw new BadReqError(err.message);
+      }
+    })
+    .catch(next);
+};
+
+const updateUser = (req, res, next) => {
+  const id = req.user._id;
+  const newName = req.body.name;
+  const newAbout = req.body.about;
+  User.findOneAndUpdate(
+    { _id: id },
+    { name: newName, about: newAbout },
+    { runValidators: true, new: true },
+  )
+    .then((user) => res.status(200).send(user))
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        throw new BadReqError(err.message);
+      }
+    })
+    .catch(next);
+};
+
 const login = (req, res, next) => {
   const { email, password } = req.body;
 
@@ -68,5 +103,5 @@ const login = (req, res, next) => {
 };
 
 module.exports = {
-  getUsers, getProfile, getCurrentUser, createUser, login,
+  getUsers, getProfile, getCurrentUser, createUser, updateAvatar, updateUser, login,
 };

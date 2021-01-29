@@ -13,7 +13,8 @@ class Api {
             method: "GET",
             headers: this.headers,
         })
-        .then((res) => this._getResponseData(res))
+        /* .then((res) => this._getResponseData(res)) */
+        .then(this._getResponseData)
     }
     
     getInitialCards() {
@@ -21,7 +22,8 @@ class Api {
             method: "GET",
             headers: this.headers,
         })
-        .then((res) => this._getResponseData(res))
+        .then(this._getResponseData)
+        /* .then((res) => this._getResponseData(res)) */
     }
 
     
@@ -34,7 +36,8 @@ class Api {
                 about: item.about,
             }),
         })
-        .then((res) => this._getResponseData(res))
+        .then(this._getResponseData)
+        /* .then((res) => this._getResponseData(res)) */
     }
     
     sendUserAvatar(item) {
@@ -45,7 +48,8 @@ class Api {
             avatar: item.avatar,
             }),
         })
-        .then((res) => this._getResponseData(res))
+        .then(this._getResponseData)
+        /* .then((res) => this._getResponseData(res)) */
     }
     
     postNewCard(item) {
@@ -54,7 +58,8 @@ class Api {
             headers: this.headers,
             body: JSON.stringify(item)
         })
-        .then((res) => this._getResponseData(res))
+        .then(this._getResponseData)
+        /* .then((res) => this._getResponseData(res)) */
     }
     
     deleteCard(cardId) {
@@ -62,7 +67,8 @@ class Api {
             method: "DELETE",
             headers: this.headers,
         })
-        .then((res) => this._getResponseData(res))
+        .then(this._getResponseData)
+        /* .then((res) => this._getResponseData(res)) */
     }
     
     addLike(cardId) {
@@ -70,7 +76,8 @@ class Api {
             method: "PUT",
             headers: this.headers,
         })
-        .then((res) => this._getResponseData(res))
+        .then(this._getResponseData)
+        /* .then((res) => this._getResponseData(res)) */
     }
     
     removeLike(cardId) {
@@ -79,7 +86,8 @@ class Api {
             method: "DELETE",
             headers: this.headers,
         })
-        .then((res) => this._getResponseData(res))
+        .then(this._getResponseData)
+        /* .then((res) => this._getResponseData(res)) */
     }
 
     changeLikeCardStatus(id, isLiked) {
@@ -88,13 +96,15 @@ class Api {
             method: "PUT",
             headers: this.headers,
         })
-        .then((res) => this._getResponseData(res))
+        .then(this._getResponseData)
+        /* .then((res) => this._getResponseData(res)) */
     } else {
         return fetch(`${this.baseUrl}/cards/likes/${id}`, {
             method: "DELETE",
             headers: this.headers,
         })
-        .then((res) => this._getResponseData(res))
+        .then(this._getResponseData)
+        /* .then((res) => this._getResponseData(res)) */
     }}
 
     /* выводим ошибку */

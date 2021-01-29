@@ -1,5 +1,6 @@
 /* eslint-disable no-shadow */
 const Card = require('../models/card');
+const User = require('../models/user');
 /* const User = require('../models/user'); */
 const ServerError = require('../errors/server-error');
 const BadReqError = require('../errors/bad-req-error');
@@ -47,4 +48,32 @@ const deleteCard = (req, res, next) => {
     .catch(next);
 };
 
-module.exports = { getCards, createCard, deleteCard };
+const likeCard = (req, res, next) => {
+  User.findById(req.user._id)
+    .then((user) => {
+      Card.findByIdAndUpdate({ _id: req.params.cardID }, { $push: { likes: user } }, { new: true })
+        .then((card) => {
+          res.status(200).send(card);
+        })
+        .catch(next);
+    })
+    .catch(next);
+};
+
+const dislikeCard = (req, res, next) => {
+  User.findById(req.user._id)
+    .then((user) => {
+      Card
+      // eslint-disable-next-line max-len
+        .findByIdAndUpdate({ _id: req.params.cardID }, { $pull: { likes: user._id } }, { new: true })
+        .then((card) => {
+          res.status(200).send(card);
+        })
+        .catch(next);
+    })
+    .catch(next);
+};
+
+module.exports = {
+  getCards, createCard, deleteCard, dislikeCard, likeCard,
+};

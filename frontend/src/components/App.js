@@ -212,7 +212,6 @@ function App() {
     }, [])
 
     // возвращаем разметку страницы, которую добавляем в DOM
-    
     return (
         <div className="page">
             <CurrentUserContext.Provider value={currentUser}>

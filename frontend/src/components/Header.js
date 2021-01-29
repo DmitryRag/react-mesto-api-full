@@ -4,7 +4,7 @@ import logo from '../images/mesto__logo.svg'
 
 function Header(props) {
     function signOut() {
-        localStorage.removeItem('jwt');
+        localStorage.removeItem('token');
         props.handleLoggedOut();
     }
 
@@ -14,7 +14,7 @@ function Header(props) {
             <Switch>
                 <Route exact path="/">
                     <div className="header__info-container">
-                        <p className="header__account">{props.userData.email}</p>
+                        <p className="header__account">{props.email}</p>
                         <Link to="/sign-up" className="header__link" onClick={signOut}>Выйти</Link>
                     </div>
                 </Route>

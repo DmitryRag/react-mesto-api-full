@@ -1,14 +1,14 @@
 export const BASE_URL = 'https://api.dmitryrag.students.nomoredomains.icu';
 
 // отправка запроса на регистрацию пользователя
-export const register = (email, password) => {
+export const register = (email, password, name) => {
     return fetch(`${BASE_URL}/signup`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({email, password})
+      body: JSON.stringify({email, password, name})
     })
     .then((res) => {
       if (res.status === 201){
@@ -18,6 +18,9 @@ export const register = (email, password) => {
           console.log('Некорректно заполнено одно из полей');
           return false
       }
+    })
+    .then((res) => {
+      return res
     })
     .catch((err) => console.log(err))
 }
@@ -47,7 +50,7 @@ export const authorize = (email, password) => {
     })
     .then((data) => {
         if (data.token){
-          localStorage.setItem('jwt', data.token);
+          localStorage.setItem('token', data.token);
           return data;
         }
       })
