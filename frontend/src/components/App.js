@@ -187,6 +187,7 @@ function App() {
     function handleRegister(email, password, name) {
         auth.register(email, password, name)
         .then((res) => {
+            handleInfoTooltipOpen()
             if (res) {
                 history.push('/sign-in')
             }
@@ -240,11 +241,13 @@ function App() {
                         <Login
                             handleLoggedIn = {handleLoggedIn}
                             handleInfoTooltipOpen = {handleInfoTooltipOpen}
+                            setUserData = {setUserData}
                         />
                     </Route>
                     <Route path="/sign-up">
                         <Register
                             handleRegister={handleRegister}
+                            handleInfoTooltipOpen = {handleInfoTooltipOpen}
                         />
                     </Route>
                 </Switch>

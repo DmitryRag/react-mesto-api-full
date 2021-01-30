@@ -14,6 +14,7 @@ const cardsRouter = require('./routes/cards'); // импортировали р�
 const usersRouter = require('./routes/users'); // импортировали роутер пользователей
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { createUser, login } = require('./controllers/users');
+const NotFoundError = require('./errors/not-found-error');
 
 const { PORT = 3000 } = process.env; // адрес порта
 
@@ -47,9 +48,6 @@ app.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
     password: Joi.string().required().min(2).max(30),
-    name: Joi.string().min(2).max(30),
-    about: Joi.string().min(2).max(30),
-    avatar: Joi.string(),
   }),
 }), login);
 
@@ -60,9 +58,9 @@ app.use(errorLogger); // подключаем логгер ошибок
 
 app.use(errors()); // обработчик ошибок celebrate
 
-app.use((req, res) => {
-  res.status(404).send({ message: 'Запрашиваемый ресурс не найден' });
-}); // обработали несуществующий адрес для всех видов запросов ---------------------------------
+app.use('*', () => {
+  throw new NotFoundError('Запрашиваемый ресурс не найден');
+}); // обработали несуществующий адрес для всех видов запросов
 
 // централизованный обработчик ошибок
 app.use((err, req, res, next) => {
