@@ -1,6 +1,5 @@
 /* eslint-disable no-shadow */
 const Card = require('../models/card');
-const User = require('../models/user');
 const ServerError = require('../errors/server-error');
 const BadReqError = require('../errors/bad-req-error');
 const NotFoundError = require('../errors/not-found-error');
@@ -48,29 +47,49 @@ const deleteCard = (req, res, next) => {
 };
 
 const likeCard = (req, res, next) => {
-  User.findById(req.user._id)
-    .then((user) => {
-      Card.findByIdAndUpdate({ _id: req.params.cardID }, { $push: { likes: user } }, { new: true })
-        .then((card) => {
-          res.status(200).send(card);
-        })
-        .catch(next);
+  Card.findByIdAndUpdate(
+    req.params.cardId,
+    { $addToSet: { likes: req.user._id } },
+    { new: true },
+  )
+    .then((card) => {
+      if (!card) {
+        throw new NotFoundError('Карточка не найдена');
+      } else {
+        res
+          .status(200)
+          .send(card);
+      }
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        next(new BadReqError('invalid id'));
+      }
+      next(err);
+    });
 };
 
 const dislikeCard = (req, res, next) => {
-  User.findById(req.user._id)
-    .then((user) => {
-      Card
-      // eslint-disable-next-line max-len
-        .findByIdAndUpdate({ _id: req.params.cardID }, { $pull: { likes: user._id } }, { new: true })
-        .then((card) => {
-          res.status(200).send(card);
-        })
-        .catch(next);
+  Card.findByIdAndUpdate(
+    req.params.cardId,
+    { $pull: { likes: req.user._id } },
+    { new: true },
+  )
+    .then((card) => {
+      if (!card) {
+        throw new NotFoundError('Карточка не найдена');
+      } else {
+        res
+          .status(200)
+          .send(card);
+      }
     })
-    .catch(next);
+    .catch((err) => {
+      if (err.name === 'CastError') {
+        next(new BadReqError('invalid id'));
+      }
+      next(err);
+    });
 };
 
 module.exports = {

@@ -68,32 +68,33 @@ class Api {
         .then((res) => this._getResponseData(res))
     }
     
-    addLike(cardId) {
-        return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+    likeCard(cardId) {
+        return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
             method: "PUT",
             headers: this.headers,
         })
         .then((res) => this._getResponseData(res))
     }
     
-    removeLike(cardId) {
+    dislikeCard(cardId) {
         console.log(cardId)
-        return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+        return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
             method: "DELETE",
             headers: this.headers,
         })
         .then((res) => this._getResponseData(res))
     }
 
-    changeLikeCardStatus(_id, isLiked) {
+    changeLikeCardStatus(cardId, isLiked) {
+        console.log(cardId)
     if (isLiked) {
-        return fetch(`${this.baseUrl}/cards/likes/${_id}`, {
+        return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
             method: "PUT",
             headers: this.headers,
         })
         .then((res) => this._getResponseData(res))
     } else {
-        return fetch(`${this.baseUrl}/cards/likes/${_id}`, {
+        return fetch(`${this.baseUrl}/cards/${cardId}/likes`, {
             method: "DELETE",
             headers: this.headers,
         })
@@ -109,8 +110,6 @@ class Api {
     }
 
 }
-
-
 
 const api = new Api({
     baseUrl: "https://api.dmitryrag.students.nomoredomains.icu",
