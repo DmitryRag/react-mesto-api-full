@@ -247,7 +247,6 @@ function App() {
                     <Route path="/sign-up">
                         <Register
                             handleRegister={handleRegister}
-                            handleInfoTooltipOpen = {handleInfoTooltipOpen}
                         />
                     </Route>
                 </Switch>

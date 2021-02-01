@@ -24,7 +24,7 @@ const getProfile = (req, res, next) => {
       }
       return res.status(200).send(user);
     })
-    .catch(() => next(new ServerError('Ошибка сервера')));
+    .catch(next);
 };
 
 const getCurrentUser = (req, res, next) => {
